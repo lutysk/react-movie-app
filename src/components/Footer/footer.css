@@ -1,0 +1,10 @@
+footer {
+    background: #424242;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.footer-logo {
+    text-align: center;
+    color: red;
+}
