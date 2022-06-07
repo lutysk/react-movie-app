@@ -1,17 +1,26 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const ErrorBoundary = ({children}) => {
-  const ErrorTemplate = () => (<h2>Oops... something went wrong, try to reload the page</h2>);
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
-  const canLoad = true;
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
 
-  return (<>{canLoad ? children : <ErrorTemplate />}</>);
+  componentDidCatch(error, errorInfo) {
+    console.error(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h2>Oops... something went wrong, try to reload the page</h2>;
+    }
+
+    return this.props.children;
+  }
 }
-
-ErrorBoundary.propTypes = {
-  error: PropTypes.any,
-  children: PropTypes.any
-};
 
 export default ErrorBoundary;
